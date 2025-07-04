@@ -3,153 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kartu Peserta JPKM</title>
+  <title>Pencarian Data Peserta JPKM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
+      padding: 30px;
+      text-align: center;
     }
 
-    .title {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
+    img.logo {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 0;
     }
 
     form {
-      margin-bottom: 30px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      margin: 0 auto 30px;
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: left;
     }
 
     label {
-      flex: 1 0 100%;
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
     }
 
-    input {
-      padding: 8px;
+    input[type="text"] {
       width: 100%;
+      padding: 8px;
       box-sizing: border-box;
     }
 
     button {
-      padding: 10px 15px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    #card-container {
-      position: relative;
-      width: 650px;
-      height: 935px;
-      margin: 40px auto;
-      background-image: url('Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg');
-      background-size: cover;
-      background-position: center;
-      font-size: 14px;
-    }
-
-    #card-container div {
-      position: absolute;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .nama        { top: 110px; left: 52px; }
-    .nojpkm      { top: 130px; left: 52px; }
-    .namagrup    { top: 150px; left: 52px; }
-    .ppkbasis    { top: 168px; left: 150px; }
-    .tgllahir    { top: 152px; right: 58px; }
-    .klinik      { top: 187px; left: 150px; }
-    .plafon      { top: 205px; left: 150px; }
-    .gigi        { top: 218px; left: 150px; }
-    .masaberlaku { top: 235px; left: 150px; }
-    .namapaket   {
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
+      padding: 10px 20px;
       font-size: 16px;
-      font-weight: bold;
+      cursor: pointer;
     }
+
+    #loading, #not-found {
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    #not-found {
+      color: red;
+    }
+
+    .kartu-container {
+      position: relative;
+      display: inline-block;
+      margin-top: 30px;
+    }
+
+    .kartu-gambar {
+      width: 500px;
+    }
+
+    .text-field {
+      position: absolute;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .nama        { top: 85px; left: 30px; width: 440px; }
+    .nojpkm      { top: 100px; left: 30px; }
+    .namagrup    { top: 120px; left: 30px; }
+    .ppkbasis    { top: 255px; left: 30px; }
+    .tgllahir    { top: 70px; right: 30px; }
+    .klinik      { top: 270px; left: 160px; }
+    .plafon      { top: 285px; left: 160px; }
+    .gigi        { top: 300px; left: 160px; }
+    .masaberlaku { top: 315px; left: 160px; }
   </style>
 </head>
 <body>
-  <h2 class="title">Pencarian Data Peserta JPKM</h2>
-  
+  <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
+  <h2>Pencarian Data Peserta JPKM</h2>
+
   <form id="identity-form">
-    <label for="nojpkm">No. JPKM:</label>
-    <input type="text" id="nojpkm" />
-
-    <label for="name">Nama Peserta:</label>
-    <input type="text" id="name" />
-
-    <label for="package">Nama Paket:</label>
-    <input type="text" id="package" />
-
+    <div class="form-group">
+      <label for="nojpkm">No. JPKM:</label>
+      <input type="text" id="nojpkm" />
+    </div>
+    <div class="form-group">
+      <label for="name">Nama Peserta:</label>
+      <input type="text" id="name" />
+    </div>
+    <div class="form-group">
+      <label for="package">Nama Paket:</label>
+      <input type="text" id="package" />
+    </div>
     <button type="submit">Cari</button>
   </form>
 
-  <div id="card-container"></div>
+  <div id="loading" style="display: none;">Memuat data...</div>
+  <div id="not-found" style="display: none;">Data tidak ditemukan. Silakan periksa kembali input Anda.</div>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("identity-form").addEventListener("submit", function (event) {
-        event.preventDefault();
+  <div id="result" style="display: none;">
+    <div class="kartu-container">
+      <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" class="kartu-gambar" />
+      <div class="text-field nama" id="field-nama"></div>
+      <div class="text-field nojpkm" id="field-nojpkm"></div>
+      <div class="text-field namagrup" id="field-namagrup"></div>
+      <div class="text-field ppkbasis" id="field-ppkbasis"></div>
+      <div class="text-field tgllahir" id="field-tgllahir"></div>
+      <div class="text-field klinik" id="field-klinik"></div>
+      <div class="text-field plafon" id="field-plafon"></div>
+      <div class="text-field gigi" id="field-gigi"></div>
+      <div class="text-field masaberlaku" id="field-masaberlaku"></div>
+    </div>
+  </div>
 
-        const nojpkmInput = document.getElementById("nojpkm").value.trim().toUpperCase();
-        const nameInput = document.getElementById("name").value.trim().toLowerCase();
-        const packageInput = document.getElementById("package").value.trim().toUpperCase();
-
-        fetch("Peserta%20JPKM%20s.d%2010%20Juni%202025%20New.json")
-          .then((response) => response.json())
-          .then((jsonData) => {
-            const data = jsonData["Sheet1"];
-            const peserta = data.find((item) => {
-              const matchNo = nojpkmInput === "" || item["No JPKM"]?.toUpperCase() === nojpkmInput;
-              const matchName = nameInput === "" || item["Nama Member"]?.toLowerCase() === nameInput;
-              const matchPaket = packageInput === "" || item["Nama Paket"]?.toUpperCase() === packageInput;
-              return matchNo && matchName && matchPaket;
-            });
-
-            const container = document.getElementById("card-container");
-            container.innerHTML = "";
-
-            if (peserta) {
-              const card = document.createElement("div");
-              card.innerHTML = `
-                <div class="nama">${peserta["Nama Member"]}</div>
-                <div class="nojpkm">${peserta["No JPKM"]}</div>
-                <div class="namagrup">${peserta["Nama Grup"]}</div>
-                <div class="ppkbasis">${peserta["PPKBasis"]}</div>
-                <div class="tgllahir">${peserta["Tanggal Lahir"]}</div>
-                <div class="klinik">${peserta["Klinik Layanan"]}</div>
-                <div class="plafon">${peserta["Kode Plafond"]}</div>
-                <div class="gigi">${peserta["Paket Tambahan"]}</div>
-                <div class="masaberlaku">${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}</div>
-                <div class="namapaket">${peserta["Nama Paket"]}</div>
-              `;
-              container.appendChild(card);
-            } else {
-              alert("Data tidak ditemukan. Pastikan input sesuai.");
-            }
-          })
-          .catch((error) => {
-            console.error("Terjadi kesalahan:", error);
-            alert("Gagal memuat data.");
-          });
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

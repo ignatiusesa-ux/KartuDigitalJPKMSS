@@ -6,40 +6,47 @@ window.addEventListener("DOMContentLoaded", function () {
     const nameInput = document.getElementById("name").value.trim().toLowerCase();
     const packageInput = document.getElementById("package").value.trim().toUpperCase();
 
+    const loadingElement = document.getElementById("loading");
+    const resultElement = document.getElementById("result");
+    const notFoundElement = document.getElementById("not-found");
+
+    loadingElement.style.display = "block";
+    resultElement.style.display = "none";
+    notFoundElement.style.display = "none";
+
     fetch("Peserta%20JPKM%20s.d%2010%20Juni%202025%20New.json")
       .then((response) => response.json())
       .then((data) => {
-        const pesertaList = data["Sheet1"];
-        const peserta = pesertaList.find((item) => {
-          const matchNoJPKM = item["No JPKM"]?.toUpperCase() === nojpkmInput;
-          const matchName = nameInput === "" || item["Nama Member"]?.toLowerCase() === nameInput;
-          const matchPackage = packageInput === "" || item["Nama Paket"]?.toUpperCase() === packageInput;
-          return matchNoJPKM && matchName && matchPackage;
+        const list = data.Sheet1 || [];
+        const peserta = list.find((item) => {
+          const matchNo = nojpkmInput && item["No JPKM"]?.toUpperCase() === nojpkmInput;
+          const matchNama = nameInput && item["Nama Member"]?.toLowerCase() === nameInput;
+          const matchPaket = packageInput && item["Nama Paket"]?.toUpperCase() === packageInput;
+          return matchNo || (matchNama && matchPaket);
         });
 
-        const card = document.getElementById("cardContainer");
+        loadingElement.style.display = "none";
 
         if (peserta) {
-          document.getElementById("namaText").textContent = peserta["Nama Member"];
-          document.getElementById("nojpkmText").textContent = peserta["No JPKM"];
-          document.getElementById("namagrupText").textContent = peserta["Nama Grup"];
-          document.getElementById("ppkbasisText").textContent = peserta["PPKBasis"];
-          document.getElementById("tgllahirText").textContent = peserta["Tanggal Lahir"];
-          document.getElementById("rajalText").textContent = peserta["Klinik Layanan"];
-          document.getElementById("ranapText").textContent = peserta["Kode Plafond"];
-          document.getElementById("gigiText").textContent = peserta["Paket Tambahan"];
-          document.getElementById("masaberlakuText").textContent =
-            `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
-          
-          card.style.display = "inline-block";
+          document.getElementById("field-nama").textContent = peserta["Nama Member"];
+          document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
+          document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];
+          document.getElementById("field-ppkbasis").textContent = peserta["PPKBasis"];
+          document.getElementById("field-tgllahir").textContent = peserta["Tanggal Lahir"];
+          document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
+          document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
+          document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
+          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
+
+          resultElement.style.display = "block";
         } else {
-          alert("Data tidak ditemukan. Silakan periksa kembali input Anda.");
-          card.style.display = "none";
+          notFoundElement.style.display = "block";
         }
       })
       .catch((error) => {
-        alert("Terjadi kesalahan saat memuat data.");
-        console.error("Error:", error);
+        loadingElement.style.display = "none";
+        notFoundElement.style.display = "block";
+        console.error("Terjadi kesalahan:", error);
       });
   });
 });

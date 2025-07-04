@@ -23,6 +23,13 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
+          const kartuGambar = document.getElementById("kartu-gambar");
+          if (packageInput === "UMUM") {
+            kartuGambar.src = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+          } else {
+            kartuGambar.src = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+          }
+
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
           document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
           document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];

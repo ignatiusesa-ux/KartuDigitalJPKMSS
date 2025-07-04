@@ -3,91 +3,145 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kartu Peserta JPKM</title>
+  <title>Pencarian Data Peserta JPKM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      padding: 30px;
       text-align: center;
-      margin: 20px;
     }
 
-    .card-container {
+    img.logo {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      margin: 0 auto 30px;
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #loading, #not-found {
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    #not-found {
+      color: red;
+    }
+
+    .kartu-container {
       position: relative;
       display: inline-block;
+      margin-top: 30px;
     }
 
-    .card-image {
-      width: 600px;
-      height: auto;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 600px;
-      height: 100%;
-      pointer-events: none;
+    .kartu-gambar {
+      width: 500px;
     }
 
     .text-field {
       position: absolute;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       color: black;
+    }
+
+    .nama        { top: 85px; left: 30px; width: 440px; }
+    .nojpkm      { top: 100px; left: 30px; }
+    .namagrup    { top: 120px; left: 30px; }
+    .ppkbasis    { top: 255px; left: 30px; }
+    .tgllahir    { top: 70px; right: 30px; }
+    .klinik      { top: 270px; left: 160px; }
+    .plafon      { top: 285px; left: 160px; }
+    .gigi        { top: 300px; left: 160px; }
+    .masaberlaku { top: 315px; left: 160px; }
+
+    #info-text {
+      margin-top: 30px;
       text-align: left;
-    }
-
-    .nama         { top: 90px;  left: 30px; }
-    .nojpkm       { top: 105px; left: 30px; }
-    .namagrup     { top: 120px; left: 30px; }
-    .ppkbasis     { top: 255px; left: 30px; } /* Sejajar dengan Klinik Layanan */
-    .tgllahir     { top: 90px;  right: 30px; }
-    .rajal        { top: 255px; left: 370px; }
-    .ranap        { top: 275px; left: 370px; }
-    .gigi         { top: 295px; left: 370px; }
-    .masaberlaku  { top: 315px; left: 370px; }
-
-    form {
-      margin-bottom: 20px;
-    }
-
-    input, button {
-      padding: 8px;
-      margin: 5px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
 <body>
-
+  <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
   <h2>Pencarian Data Peserta JPKM</h2>
 
   <form id="identity-form">
-    <label for="nojpkm">No. JPKM:</label>
-    <input type="text" id="nojpkm" />
-
-    <label for="name">Nama Peserta:</label>
-    <input type="text" id="name" />
-
-    <label for="package">Nama Paket:</label>
-    <input type="text" id="package" />
-
+    <div class="form-group">
+      <label for="nojpkm">No. JPKM:</label>
+      <input type="text" id="nojpkm" />
+    </div>
+    <div class="form-group">
+      <label for="name">Nama Peserta:</label>
+      <input type="text" id="name" />
+    </div>
+    <div class="form-group">
+      <label for="package">Nama Paket:</label>
+      <input type="text" id="package" />
+    </div>
     <button type="submit">Cari</button>
   </form>
 
-  <div class="card-container" style="display: none;" id="cardContainer">
-    <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" alt="Kartu Peserta" class="card-image" />
-    <div class="overlay">
-      <div class="text-field nama" id="namaText"></div>
-      <div class="text-field nojpkm" id="nojpkmText"></div>
-      <div class="text-field namagrup" id="namagrupText"></div>
-      <div class="text-field ppkbasis" id="ppkbasisText"></div>
-      <div class="text-field tgllahir" id="tgllahirText"></div>
-      <div class="text-field rajal" id="rajalText"></div>
-      <div class="text-field ranap" id="ranapText"></div>
-      <div class="text-field gigi" id="gigiText"></div>
-      <div class="text-field masaberlaku" id="masaberlakuText"></div>
+  <div id="loading" style="display: none;">Memuat data...</div>
+  <div id="not-found" style="display: none;">Data tidak ditemukan. Silakan periksa kembali input Anda.</div>
+
+  <div id="result" style="display: none;">
+    <div class="kartu-container">
+      <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" class="kartu-gambar" />
+      <div class="text-field nama" id="field-nama"></div>
+      <div class="text-field nojpkm" id="field-nojpkm"></div>
+      <div class="text-field namagrup" id="field-namagrup"></div>
+      <div class="text-field ppkbasis" id="field-ppkbasis"></div>
+      <div class="text-field tgllahir" id="field-tgllahir"></div>
+      <div class="text-field klinik" id="field-klinik"></div>
+      <div class="text-field plafon" id="field-plafon"></div>
+      <div class="text-field gigi" id="field-gigi"></div>
+      <div class="text-field masaberlaku" id="field-masaberlaku"></div>
     </div>
+  </div>
+
+  <div id="info-text">
+    <strong>PERHATIAN!! Ketentuan Paket Siswa/Mahasiswa:</strong><br/><br/>
+    1. Rawat jalan wajib membawa rujukan dari PPK I jejaring JPKM<br/>
+    2. Peserta yang berobat ke UGD, agar diinfokan formulir surat pernyataan kesediaan jika tidak termasuk kriteria emergency JPKM (yang ditanggung JPKM ATS 1-4)<br/>
+    3. Dokter spesialis yang ditanggung (Dokter tetap & praktek pagi):<br/>
+    <strong>PAKET SISWA:</strong> Anak, Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT<br/>
+    <strong>PAKET MAHASISWA:</strong> Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT
   </div>
 
   <script src="script.js"></script>

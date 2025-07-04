@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cari Data Peserta JPKM</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 8px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .download-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .download-button:hover {
+      background-color: #0056b3;
+    }
+    #loading {
+      font-style: italic;
+    }
+    #info-text {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      color: #856404;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pencarian Data Peserta JPKM Surya Sumirat</h2>
+
+  <form id="identity-form">
+    <label for="jpkm">No. JPKM:</label>
+    <input type="text" id="nojpkm" />
+
+    <label for="name">Nama Peserta:</label>
+    <input type="text" id="name" />
+
+    <label for="package">Nama Paket:</label>
+    <input type="text" id="package" />
+
+    <button type="submit">Cari</button>
+  </form>
+
+  <!-- Teks Perhatian -->
+  <div id="info-text">
+    <strong>PERHATIAN!! Ketentuan Paket Siswa/Mahasiswa:</strong>
+    <ol>
+      <li>Rawat jalan wajib membawa rujukan dari PPK I jejaring JPKM</li>
+      <li>Peserta yang berobat ke UGD, agar diinfokan formulir surat pernyataan kesediaan jika tidak termasuk kriteria emergency JPKM (yang ditanggung JPKM ATS 1-4)</li>
+      <li>Dokter spesialis yang ditanggung (Dokter tetap & praktek pagi):<br/><br/>
+        <strong>PAKET SISWA:</strong> Anak, Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT<br/>
+        <strong>PAKET MAHASISWA:</strong> Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT
+      </li>
+    </ol>
+  </div>
+
+  <div id="loading" style="display: none;">Memuat data...</div>
+  <div id="not-found" style="display: none; color: red;">Data tidak ditemukan. Silakan periksa kembali.</div>
+  <div id="result" style="display: none; margin-top: 20px;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

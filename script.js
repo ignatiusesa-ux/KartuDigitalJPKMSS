@@ -37,6 +37,7 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
           document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
+          document.getElementById("field-namapaket").textContent = peserta["Nama Paket"];
 
           resultElement.style.display = "block";
         } else {

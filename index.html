@@ -3,73 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pencarian Data Peserta JPKM</title>
+  <title>Kartu Peserta JPKM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
+      text-align: center;
+      margin: 20px;
     }
 
-    form {
-      margin-bottom: 20px;
-    }
-
-    label, input, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .kartu-container {
+    .card-container {
       position: relative;
-      width: 640px;
-      height: auto;
-      margin-top: 20px;
+      display: inline-block;
     }
 
-    .kartu {
-      width: 100%;
-      display: block;
+    .card-image {
+      width: 600px;
+      height: auto;
     }
 
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 600px;
       height: 100%;
-      padding: 20px;
-      box-sizing: border-box;
+      pointer-events: none;
     }
 
     .text-field {
       position: absolute;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
-      color: #000;
+      color: black;
+      text-align: left;
     }
 
-    /* Posisi data sesuai gambar */
-    .nama { top: 80px; left: 30px; }
-    .nojpkm { top: 100px; left: 30px; }
-    .tgllahir { top: 80px; right: 30px; }
-    .rajal { top: 170px; left: 160px; }
-    .ranap { top: 190px; left: 160px; }
-    .gigi { top: 210px; left: 160px; }
-    .masaberlaku { top: 230px; left: 160px; }
+    .nama         { top: 90px;  left: 30px; }
+    .nojpkm       { top: 105px; left: 30px; }
+    .namagrup     { top: 120px; left: 30px; }
+    .ppkbasis     { top: 255px; left: 30px; } /* Sejajar dengan Klinik Layanan */
+    .tgllahir     { top: 90px;  right: 30px; }
+    .rajal        { top: 255px; left: 370px; }
+    .ranap        { top: 275px; left: 370px; }
+    .gigi         { top: 295px; left: 370px; }
+    .masaberlaku  { top: 315px; left: 370px; }
 
-    #not-found {
-      color: red;
+    form {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 8px;
+      margin: 5px;
     }
   </style>
 </head>
@@ -90,13 +75,13 @@
     <button type="submit">Cari</button>
   </form>
 
-  <div id="not-found" style="display: none;">Data tidak ditemukan.</div>
-
-  <div id="kartu-wrapper" class="kartu-container" style="display: none;">
-    <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" alt="Kartu Peserta" class="kartu" />
+  <div class="card-container" style="display: none;" id="cardContainer">
+    <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" alt="Kartu Peserta" class="card-image" />
     <div class="overlay">
       <div class="text-field nama" id="namaText"></div>
       <div class="text-field nojpkm" id="nojpkmText"></div>
+      <div class="text-field namagrup" id="namagrupText"></div>
+      <div class="text-field ppkbasis" id="ppkbasisText"></div>
       <div class="text-field tgllahir" id="tgllahirText"></div>
       <div class="text-field rajal" id="rajalText"></div>
       <div class="text-field ranap" id="ranapText"></div>

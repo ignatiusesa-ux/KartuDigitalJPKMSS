@@ -3,60 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cari Data Peserta JPKM</title>
+  <title>Pencarian Data Peserta JPKM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
+      max-width: 700px;
+      margin: 30px auto;
       padding: 20px;
     }
-    input, button {
-      padding: 8px;
-      margin: 8px 0;
-      width: 100%;
-      box-sizing: border-box;
+
+    form {
+      margin-bottom: 20px;
     }
+
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
     button {
       background-color: #28a745;
       color: white;
+      padding: 10px;
       border: none;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #218838;
-    }
-    .download-button {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 15px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    .download-button:hover {
-      background-color: #0056b3;
-    }
-    #loading {
-      font-style: italic;
-    }
-    #info-text {
+
+    .kartu-container {
+      position: relative;
+      width: 640px;
+      height: auto;
       margin-top: 20px;
-      padding: 15px;
-      background-color: #fff3cd;
-      border: 1px solid #ffeeba;
-      color: #856404;
+    }
+
+    .kartu {
+      width: 100%;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .text-field {
+      position: absolute;
       font-size: 14px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    /* Posisi data sesuai gambar */
+    .nama { top: 80px; left: 30px; }
+    .nojpkm { top: 100px; left: 30px; }
+    .tgllahir { top: 80px; right: 30px; }
+    .rajal { top: 170px; left: 160px; }
+    .ranap { top: 190px; left: 160px; }
+    .gigi { top: 210px; left: 160px; }
+    .masaberlaku { top: 230px; left: 160px; }
+
+    #not-found {
+      color: red;
     }
   </style>
 </head>
 <body>
 
-  <h2>Pencarian Data Peserta JPKM Surya Sumirat</h2>
+  <h2>Pencarian Data Peserta JPKM</h2>
 
   <form id="identity-form">
-    <label for="jpkm">No. JPKM:</label>
+    <label for="nojpkm">No. JPKM:</label>
     <input type="text" id="nojpkm" />
 
     <label for="name">Nama Peserta:</label>
@@ -68,22 +90,20 @@
     <button type="submit">Cari</button>
   </form>
 
-  <!-- Teks Perhatian -->
-  <div id="info-text">
-    <strong>PERHATIAN!! Ketentuan Paket Siswa/Mahasiswa:</strong>
-    <ol>
-      <li>Rawat jalan wajib membawa rujukan dari PPK I jejaring JPKM</li>
-      <li>Peserta yang berobat ke UGD, agar diinfokan formulir surat pernyataan kesediaan jika tidak termasuk kriteria emergency JPKM (yang ditanggung JPKM ATS 1-4)</li>
-      <li>Dokter spesialis yang ditanggung (Dokter tetap & praktek pagi):<br/><br/>
-        <strong>PAKET SISWA:</strong> Anak, Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT<br/>
-        <strong>PAKET MAHASISWA:</strong> Penyakit Dalam, Kebidanan & Kandungan, Bedah Umum, Mata, THT
-      </li>
-    </ol>
-  </div>
+  <div id="not-found" style="display: none;">Data tidak ditemukan.</div>
 
-  <div id="loading" style="display: none;">Memuat data...</div>
-  <div id="not-found" style="display: none; color: red;">Data tidak ditemukan. Silakan periksa kembali.</div>
-  <div id="result" style="display: none; margin-top: 20px;"></div>
+  <div id="kartu-wrapper" class="kartu-container" style="display: none;">
+    <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" alt="Kartu Peserta" class="kartu" />
+    <div class="overlay">
+      <div class="text-field nama" id="namaText"></div>
+      <div class="text-field nojpkm" id="nojpkmText"></div>
+      <div class="text-field tgllahir" id="tgllahirText"></div>
+      <div class="text-field rajal" id="rajalText"></div>
+      <div class="text-field ranap" id="ranapText"></div>
+      <div class="text-field gigi" id="gigiText"></div>
+      <div class="text-field masaberlaku" id="masaberlakuText"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

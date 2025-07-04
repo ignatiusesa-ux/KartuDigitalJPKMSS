@@ -24,10 +24,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
         if (peserta) {
           const kartuGambar = document.getElementById("kartu-gambar");
-          if (packageInput === "UMUM") {
-            kartuGambar.src = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
-          } else {
+          if (packageInput === "SISWA") {
             kartuGambar.src = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+          } else {
+            kartuGambar.src = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
           }
 
           document.getElementById("field-nama").textContent = peserta["Nama Member"];

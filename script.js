@@ -2,9 +2,7 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("identity-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const nojpkmInput = document.getElementById("nojpkm").value.trim().toUpperCase();
     const nameInput = document.getElementById("name").value.trim().toLowerCase();
-    const packageInput = document.getElementById("package").value.trim().toUpperCase();
 
     const loadingElement = document.getElementById("loading");
     const resultElement = document.getElementById("result");
@@ -19,9 +17,8 @@ window.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         const list = data.Sheet1 || [];
         const peserta = list.find((item) => {
-  return item["Nama Member"]?.toLowerCase() === nameInput;
-});
-
+          return item["Nama Member"]?.toLowerCase() === nameInput;
+        });
 
         loadingElement.style.display = "none";
 
@@ -34,7 +31,8 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
-          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
+          document.getElementById("field-masaberlaku").textContent =
+            `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
           document.getElementById("field-namapaket").textContent = peserta["Nama Paket"];
 
           resultElement.style.display = "block";

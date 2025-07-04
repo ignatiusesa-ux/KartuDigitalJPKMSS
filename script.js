@@ -2,7 +2,9 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("identity-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
+    const nojpkmInput = document.getElementById("nojpkm").value.trim().toUpperCase();
     const nameInput = document.getElementById("name").value.trim().toLowerCase();
+    const packageInput = document.getElementById("package").value.trim().toUpperCase();
 
     const loadingElement = document.getElementById("loading");
     const resultElement = document.getElementById("result");
@@ -17,17 +19,20 @@ window.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         const list = data.Sheet1 || [];
         const peserta = list.find((item) => {
-          return item["Nama Member"]?.toLowerCase() === nameInput;
+          const matchNo = nojpkmInput && item["No JPKM"]?.toUpperCase() === nojpkmInput;
+          const matchNama = nameInput && item["Nama Member"]?.toLowerCase() === nameInput;
+          const matchPaket = packageInput && item["Nama Paket"]?.toUpperCase() === packageInput;
+          return matchNo || (matchNama && matchPaket);
         });
 
         loadingElement.style.display = "none";
 
         if (peserta) {
           const kartuGambar = document.getElementById("kartu-gambar");
-          if (packageInput === "SISWA") {
-            kartuGambar.src = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
-          } else {
+          if (packageInput === "UMUM") {
             kartuGambar.src = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+          } else {
+            kartuGambar.src = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
           }
 
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
@@ -38,8 +43,7 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
-          document.getElementById("field-masaberlaku").textContent =
-            `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
+          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
           document.getElementById("field-namapaket").textContent = peserta["Nama Paket"];
 
           resultElement.style.display = "block";

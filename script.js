@@ -17,10 +17,21 @@ window.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         const list = data.Sheet1 || [];
+
         const peserta = list.find((item) => {
-          const matchNama = nameInput && item["Nama Member"]?.toLowerCase() === nameInput;
-          const matchPaket = packageInput && item["Nama Paket"]?.toUpperCase() === packageInput;
-          return matchNama && matchPaket;
+          const nama = item["Nama Member"]?.toLowerCase();
+          const jenisPaket = item["Nama Paket"]?.toUpperCase();
+
+          const matchNama = nameInput && nama === nameInput;
+
+          // Logika pencocokan paket
+          if (packageInput === "SISWA") {
+            return matchNama && jenisPaket === "SISWA";
+          } else if (packageInput === "UMUM") {
+            return matchNama && jenisPaket !== "SISWA";
+          }
+
+          return false;
         });
 
         loadingElement.style.display = "none";

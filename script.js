@@ -19,11 +19,9 @@ window.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         const list = data.Sheet1 || [];
         const peserta = list.find((item) => {
-          const matchNo = nojpkmInput && item["No JPKM"]?.toUpperCase() === nojpkmInput;
-          const matchNama = nameInput && item["Nama Member"]?.toLowerCase() === nameInput;
-          const matchPaket = packageInput && item["Nama Paket"]?.toUpperCase() === packageInput;
-          return matchNo || (matchNama && matchPaket);
-        });
+  return item["Nama Member"]?.toLowerCase() === nameInput;
+});
+
 
         loadingElement.style.display = "none";
 

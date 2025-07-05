@@ -36,27 +36,49 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
-          const jenisPaket = peserta["Nama Paket"]?.toUpperCase();
+          const namaPaket = peserta["Nama Paket"]?.toUpperCase();
           const kartuGambar = document.getElementById("kartu-gambar");
+          const kartuContainer = document.getElementById("kartu-container");
 
-          // Pilih gambar kartu berdasarkan nama paket
-          let namaFile = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+          let fileName = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+          let kartuClass = "";
+
           if (packageInput === "UMUM") {
-            const mapping = {
-              "DASAR PLUS": "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "PRIMER": "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "MIX": "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "ADVANCED": "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "EXECUTIVE": "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "PLATINUM": "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg",
-              "KEUSKUPAN": "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg",
-            };
-            namaFile = mapping[jenisPaket] || namaFile;
+            switch (namaPaket) {
+              case "DASAR PLUS":
+                fileName = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "dasar-plus";
+                break;
+              case "PRIMER":
+                fileName = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "primer";
+                break;
+              case "MIX":
+                fileName = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "mix";
+                break;
+              case "ADVANCED":
+                fileName = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "advanced";
+                break;
+              case "EXECUTIVE":
+                fileName = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "executive";
+                break;
+              case "PLATINUM":
+                fileName = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "platinum";
+                break;
+              case "KEUSKUPAN":
+                fileName = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
+                kartuClass = "keuskupan";
+                break;
+            }
           }
 
-          kartuGambar.src = namaFile;
+          kartuGambar.src = fileName;
+          kartuContainer.className = `kartu-container ${kartuClass}`;
 
-          // Tampilkan data ke elemen
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
           document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
           document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];
@@ -66,7 +88,15 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
           document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
-          document.getElementById("field-namapaket").textContent = peserta["Nama Paket"];
+
+          // Tampilkan Nama Paket hanya jika "SISWA"
+          const fieldNamaPaket = document.getElementById("field-namapaket");
+          if (namaPaket === "SISWA") {
+            fieldNamaPaket.style.display = "block";
+            fieldNamaPaket.textContent = peserta["Nama Paket"];
+          } else {
+            fieldNamaPaket.style.display = "none";
+          }
 
           resultElement.style.display = "block";
         } else {

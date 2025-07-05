@@ -24,7 +24,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const matchNama = nameInput && nama === nameInput;
 
-          // Logika pencocokan paket
           if (packageInput === "SISWA") {
             return matchNama && jenisPaket === "SISWA";
           } else if (packageInput === "UMUM") {
@@ -37,13 +36,27 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
+          const jenisPaket = peserta["Nama Paket"]?.toUpperCase();
           const kartuGambar = document.getElementById("kartu-gambar");
+
+          // Pilih gambar kartu berdasarkan nama paket
+          let namaFile = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
           if (packageInput === "UMUM") {
-            kartuGambar.src = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
-          } else {
-            kartuGambar.src = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+            const mapping = {
+              "DASAR PLUS": "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "PRIMER": "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "MIX": "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "ADVANCED": "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "EXECUTIVE": "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "PLATINUM": "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg",
+              "KEUSKUPAN": "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg",
+            };
+            namaFile = mapping[jenisPaket] || namaFile;
           }
 
+          kartuGambar.src = namaFile;
+
+          // Tampilkan data ke elemen
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
           document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
           document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];

@@ -10,16 +10,13 @@
       padding: 30px;
       text-align: center;
     }
-
     img.logo {
       width: 120px;
       margin-bottom: 15px;
     }
-
     h2 {
       margin-top: 0;
     }
-
     form {
       display: flex;
       flex-direction: column;
@@ -27,57 +24,47 @@
       max-width: 400px;
       margin: 0 auto 30px;
     }
-
     .form-group {
       width: 100%;
       margin-bottom: 15px;
       text-align: left;
     }
-
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
     }
-
-    input[type="text"] {
+    input[type="text"], select {
       width: 100%;
       padding: 8px;
       box-sizing: border-box;
     }
-
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
     }
-
     #loading, #not-found {
       margin-top: 20px;
       font-style: italic;
     }
-
     #not-found {
       color: red;
     }
-
     .kartu-container {
       position: relative;
       display: inline-block;
       margin-top: 30px;
     }
-
     .kartu-gambar {
       width: 500px;
     }
-
     .text-field {
       position: absolute;
       font-size: 14px;
       font-weight: bold;
       color: black;
     }
-
     .nama        { top: 110px; left: 52px; }
     .nojpkm      { top: 130px; left: 52px; }
     .namagrup    { top: 150px; left: 52px; }
@@ -87,8 +74,7 @@
     .plafon      { top: 205px; left: 150px; }
     .gigi        { top: 218px; left: 150px; }
     .masaberlaku { top: 235px; left: 150px; }
-    .namapaket {top: 258px; left: 50%;transform: translateX(-50%); text-align: center; }
-
+    .namapaket   { top: 258px; left: 50%; transform: translateX(-50%); text-align: center; }
   </style>
 </head>
 <body>
@@ -101,11 +87,11 @@
       <input type="text" id="name" />
     </div>
     <div class="form-group">
-      <label for="package">Nama Paket:</label>
+      <label for="package">Pilih Jenis Paket:</label>
       <select id="package">
-      <option value="">-- Pilih Paket --</option>
-      <option value="SISWA">SISWA</option>
-      <option value="UMUM">UMUM</option>
+        <option value="">-- Pilih Paket --</option>
+        <option value="SISWA">SISWA</option>
+        <option value="UMUM">UMUM</option>
       </select>
     </div>
     <button type="submit">Cari</button>

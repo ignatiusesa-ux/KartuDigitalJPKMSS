@@ -9,6 +9,9 @@ window.addEventListener("DOMContentLoaded", function () {
     const resultElement = document.getElementById("result");
     const notFoundElement = document.getElementById("not-found");
 
+    const kartuContainer = document.getElementById("kartu-container");
+    const kartuGambar = document.getElementById("kartu-gambar");
+
     loadingElement.style.display = "block";
     resultElement.style.display = "none";
     notFoundElement.style.display = "none";
@@ -36,49 +39,53 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
-          const namaPaket = peserta["Nama Paket"]?.toUpperCase();
-          const kartuGambar = document.getElementById("kartu-gambar");
-          const kartuContainer = document.getElementById("kartu-container");
+          const jenisPaket = peserta["Nama Paket"]?.toUpperCase();
+          let cssClass = "";
+          let gambar = "";
 
-          let fileName = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
-          let kartuClass = "";
-
-          if (packageInput === "UMUM") {
-            switch (namaPaket) {
-              case "DASAR PLUS":
-                fileName = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "dasar-plus";
-                break;
-              case "PRIMER":
-                fileName = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "primer";
-                break;
-              case "MIX":
-                fileName = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "mix";
-                break;
-              case "ADVANCED":
-                fileName = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "advanced";
-                break;
-              case "EXECUTIVE":
-                fileName = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "executive";
-                break;
-              case "PLATINUM":
-                fileName = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "platinum";
-                break;
-              case "KEUSKUPAN":
-                fileName = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
-                kartuClass = "keuskupan";
-                break;
-            }
+          switch (jenisPaket) {
+            case "SISWA":
+              cssClass = "kartu-siswa";
+              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "DASAR PLUS":
+              cssClass = "kartu-dasarplus";
+              gambar = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "PRIMER":
+              cssClass = "kartu-primer";
+              gambar = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "MIX":
+              cssClass = "kartu-mix";
+              gambar = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "ADVANCED":
+              cssClass = "kartu-advanced";
+              gambar = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "EXECUTIVE":
+              cssClass = "kartu-executive";
+              gambar = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "PLATINUM":
+              cssClass = "kartu-platinum";
+              gambar = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            case "KEUSKUPAN":
+              cssClass = "kartu-keuskupan";
+              gambar = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
+            default:
+              cssClass = "kartu-siswa";
+              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
           }
 
-          kartuGambar.src = fileName;
-          kartuContainer.className = `kartu-container ${kartuClass}`;
+          // Set class dan gambar kartu
+          kartuContainer.className = `kartu-container ${cssClass}`;
+          kartuGambar.src = gambar;
 
+          // Isi data ke kartu
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
           document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
           document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];
@@ -89,13 +96,14 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
           document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
 
-          // Tampilkan Nama Paket hanya jika "SISWA"
-          const fieldNamaPaket = document.getElementById("field-namapaket");
-          if (namaPaket === "SISWA") {
-            fieldNamaPaket.style.display = "block";
-            fieldNamaPaket.textContent = peserta["Nama Paket"];
+          // Nama Paket hanya untuk Siswa
+          const namaPaketField = document.getElementById("field-namapaket");
+          if (jenisPaket === "SISWA") {
+            namaPaketField.textContent = peserta["Nama Paket"];
+            namaPaketField.style.display = "block";
           } else {
-            fieldNamaPaket.style.display = "none";
+            namaPaketField.textContent = "";
+            namaPaketField.style.display = "none";
           }
 
           resultElement.style.display = "block";

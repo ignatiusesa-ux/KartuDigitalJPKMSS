@@ -23,8 +23,9 @@
     form {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       max-width: 500px;
+      width: 100%;
       margin: 0 auto 30px;
     }
 
@@ -41,7 +42,6 @@
     }
 
     input[type="text"],
-    input[type="date"],
     select {
       width: 100%;
       padding: 8px;
@@ -52,6 +52,7 @@
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      align-self: center;
     }
 
     #loading, #not-found {
@@ -80,9 +81,7 @@
       color: black;
     }
 
-    /* ======================= POSISI TEKS ======================= */
-
-    /* Siswa */
+    /* Paket Siswa */
     .kartu-siswa .nama        { top: 110px; left: 52px; }
     .kartu-siswa .nojpkm      { top: 130px; left: 52px; }
     .kartu-siswa .namagrup    { top: 150px; left: 52px; }
@@ -94,7 +93,7 @@
     .kartu-siswa .masaberlaku { top: 235px; left: 150px; }
     .kartu-siswa .namapaket   { top: 258px; left: 50%; transform: translateX(-50%); text-align: center; }
 
-    /* Dasar Plus */
+    /* Paket Dasar Plus */
     .kartu-dasarplus .nama        { top: 115px; left: 52px; }
     .kartu-dasarplus .nojpkm      { top: 132px; left: 52px; }
     .kartu-dasarplus .namagrup    { top: 150px; left: 52px; }
@@ -105,7 +104,7 @@
     .kartu-dasarplus .gigi        { top: 218px; left: 150px; }
     .kartu-dasarplus .masaberlaku { top: 247px; left: 318px; }
 
-    /* Primer */
+    /* Paket Primer */
     .kartu-primer .nama        { top: 115px; left: 52px; }
     .kartu-primer .nojpkm      { top: 132px; left: 52px; }
     .kartu-primer .namagrup    { top: 150px; left: 52px; }
@@ -116,7 +115,7 @@
     .kartu-primer .gigi        { top: 218px; left: 150px; }
     .kartu-primer .masaberlaku { top: 247px; left: 318px; }
 
-    /* Mix */
+    /* Paket Mix */
     .kartu-mix .nama        { top: 110px; left: 52px; }
     .kartu-mix .nojpkm      { top: 130px; left: 52px; }
     .kartu-mix .namagrup    { top: 150px; left: 52px; }
@@ -127,7 +126,7 @@
     .kartu-mix .gigi        { top: 218px; left: 150px; }
     .kartu-mix .masaberlaku { top: 235px; left: 150px; }
 
-    /* Advanced */
+    /* Paket Advanced */
     .kartu-advanced .nama        { top: 115px; left: 52px; }
     .kartu-advanced .nojpkm      { top: 132px; left: 52px; }
     .kartu-advanced .namagrup    { top: 150px; left: 52px; }
@@ -138,7 +137,7 @@
     .kartu-advanced .gigi        { top: 218px; left: 150px; }
     .kartu-advanced .masaberlaku { top: 247px; left: 318px; }
 
-    /* Executive */
+    /* Paket Executive */
     .kartu-executive .nama        { top: 115px; left: 52px; }
     .kartu-executive .nojpkm      { top: 132px; left: 52px; }
     .kartu-executive .namagrup    { top: 150px; left: 52px; }
@@ -149,7 +148,7 @@
     .kartu-executive .gigi        { top: 218px; left: 150px; }
     .kartu-executive .masaberlaku { top: 247px; left: 318px; }
 
-    /* Platinum */
+    /* Paket Platinum */
     .kartu-platinum .nama        { top: 115px; left: 52px; }
     .kartu-platinum .nojpkm      { top: 132px; left: 52px; }
     .kartu-platinum .namagrup    { top: 150px; left: 52px; }
@@ -160,7 +159,7 @@
     .kartu-platinum .gigi        { top: 218px; left: 150px; }
     .kartu-platinum .masaberlaku { top: 247px; left: 318px; }
 
-    /* Keuskupan */
+    /* Paket Keuskupan */
     .kartu-keuskupan .nama        { top: 115px; left: 52px; }
     .kartu-keuskupan .nojpkm      { top: 132px; left: 52px; }
     .kartu-keuskupan .namagrup    { top: 150px; left: 52px; }
@@ -170,6 +169,7 @@
     .kartu-keuskupan .plafon      { top: 205px; left: 150px; }
     .kartu-keuskupan .gigi        { top: 218px; left: 150px; }
     .kartu-keuskupan .masaberlaku { top: 247px; left: 318px; }
+
   </style>
 </head>
 <body>
@@ -182,11 +182,11 @@
       <input type="text" id="name" />
     </div>
 
-    <div class="form-group">
+     <div class="form-group">
       <label for="birthdate">Tanggal Lahir:</label>
       <input type="date" id="birthdate" />
-    </div>
-
+  </div>
+    
     <div class="form-group">
       <label for="package">Nama Paket:</label>
       <select id="package">
@@ -195,7 +195,6 @@
         <option value="UMUM">UMUM</option>
       </select>
     </div>
-
     <button type="submit">Cari</button>
   </form>
 

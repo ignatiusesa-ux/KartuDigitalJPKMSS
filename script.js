@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         const peserta = list.find((item) => {
           const nama = item["Nama Member"]?.toLowerCase();
-          const jenisPaket = item["Nama Paket"]?.toUpperCase();
+          const jenisPaket = item["Paket"]?.toUpperCase();
 
           const matchNama = nameInput && nama === nameInput;
 
@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded", function () {
           // Nama Paket hanya untuk Siswa
           const namaPaketField = document.getElementById("field-namapaket");
           if (jenisPaket === "SISWA") {
-            namaPaketField.textContent = peserta["Nama Paket"];
+            namaPaketField.textContent = peserta["Paket"];
             namaPaketField.style.display = "block";
           } else {
             namaPaketField.textContent = "";

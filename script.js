@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
-          const jenisPaket = peserta["Nama Paket"]?.toUpperCase();
+          const jenisPaket = peserta["Paket"]?.toUpperCase();
           let cssClass = "";
           let gambar = "";
 

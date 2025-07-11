@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", function () {
     fetch("Peserta%20JPKM%20s.d%2010%20Juli%202025%20New.json")
       .then((response) => response.json())
       .then((data) => {
-        const list = data.Sheet1 || [];
+        const list = data.Peserta_11-07-2025 || [];
 
         const peserta = list.find((item) => {
           const nama = item["Nama Member"]?.toLowerCase();

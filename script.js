@@ -88,8 +88,8 @@ window.addEventListener("DOMContentLoaded", function () {
           // Isi data ke kartu
           document.getElementById("field-nama").textContent = peserta["Nama Member"];
           document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
-          document.getElementById("field-namagrup").textContent = peserta["Nama Grup"];
-          document.getElementById("field-ppkbasis").textContent = peserta["PPKBasis"];
+          document.getElementById("field-namagrup").textContent = peserta["Grup"];
+          document.getElementById("field-ppkbasis").textContent = peserta["PPK Basis"];
           document.getElementById("field-tgllahir").textContent = peserta["Tanggal Lahir"];
           document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];

@@ -106,4 +106,48 @@
 </head>
 <body>
 
-  <img src="JPKM LOGO.png" a
+  <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
+  <h2>Pencarian Data Peserta JPKM</h2>
+
+  <form id="identity-form">
+    <div class="form-group">
+      <label for="name">Nama Peserta:</label>
+      <input type="text" id="name" />
+    </div>
+    <div class="form-group">
+      <label for="birthdate">Tanggal Lahir:</label>
+      <input type="date" id="birthdate" />
+    </div>
+    <div class="form-group">
+      <label for="package">Nama Paket:</label>
+      <select id="package">
+        <option value="">-- Pilih Paket --</option>
+        <option value="SISWA">SISWA</option>
+        <option value="UMUM">UMUM</option>
+      </select>
+    </div>
+    <button type="submit">Cari</button>
+  </form>
+
+  <div id="loading" style="display: none;">Memuat data...</div>
+  <div id="not-found" style="display: none;">Data tidak ditemukan. Silakan periksa kembali input Anda.</div>
+
+  <div id="result" style="display: none;">
+    <div class="kartu-container kartu-siswa" id="kartu-container">
+      <img id="kartu-gambar" class="kartu-gambar" />
+      <div class="text-field nama" id="field-nama"></div>
+      <div class="text-field nojpkm" id="field-nojpkm"></div>
+      <div class="text-field namagrup" id="field-namagrup"></div>
+      <div class="text-field ppkbasis" id="field-ppkbasis"></div>
+      <div class="text-field tgllahir" id="field-tgllahir"></div>
+      <div class="text-field klinik" id="field-klinik"></div>
+      <div class="text-field plafon" id="field-plafon"></div>
+      <div class="text-field gigi" id="field-gigi"></div>
+      <div class="text-field masaberlaku" id="field-masaberlaku"></div>
+      <div class="text-field namapaket" id="field-namapaket" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

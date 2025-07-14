@@ -10,7 +10,13 @@
       padding: 30px;
       text-align: center;
     }
-
+    
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
     img.logo {
       width: 120px;
       margin-bottom: 15px;
@@ -171,6 +177,10 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
+    <h2>Pencarian Data Peserta JPKM</h2>
+
   <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
   <h2>Pencarian Data Peserta JPKM</h2>
 
@@ -212,8 +222,8 @@
       <div class="text-field masaberlaku" id="field-masaberlaku"></div>
       <div class="text-field namapaket" id="field-namapaket" style="display: none;"></div>
     </div>
-  </div>
-
+   </div> <!-- Ini penutup .container -->
   <script src="script.js"></script>
 </body>
+
 </html>

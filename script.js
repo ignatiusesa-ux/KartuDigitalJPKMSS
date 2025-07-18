@@ -27,11 +27,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const matchNama = nameInput && nama === nameInput;
 
-          if (packageInput === "SISWA") {
-            return matchNama && jenisPaket === "SISWA";
-          } else if (packageInput === "UMUM") {
-            return matchNama && jenisPaket !== "SISWA";
-          }
+         if (packageInput === "SISWA" || packageInput === "MAHASISWA") {
+            return matchNama && (jenisPaket === "SISWA" || jenisPaket === "MAHASISWA");
+            } else if (packageInput === "UMUM") {
+            return matchNama && jenisPaket !== "SISWA" && jenisPaket !== "MAHASISWA";
+            }
+
 
           return false;
         });
@@ -45,6 +46,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
           switch (jenisPaket) {
             case "SISWA":
+            case "MAHASISWA":
               cssClass = "kartu-siswa";
               gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
@@ -98,7 +100,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
           // Nama Paket hanya untuk Siswa
           const namaPaketField = document.getElementById("field-namapaket");
-          if (jenisPaket === "SISWA") {
+         if (jenisPaket === "SISWA" || jenisPaket === "MAHASISWA") {
             namaPaketField.textContent = peserta["Paket"];
             namaPaketField.style.display = "block";
           } else {

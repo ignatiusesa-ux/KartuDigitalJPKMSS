@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pencarian Data Peserta JPKM</title>
   <style>
+    .form-group {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: left;
+  position: relative; /* Tambahkan ini */
+}  
     .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -27,6 +33,7 @@
 .autocomplete-items li:hover {
   background-color: #e9e9e9;
 }
+    
 
     body {
       font-family: Arial, sans-serif;
@@ -69,9 +76,6 @@
       margin-bottom: 5px;
       font-weight: bold;
     }
-
-    <input type="text" id="name" name="name" placeholder="Ketik Nama Peserta..." autocomplete="off" />
-<ul id="autocomplete-list" class="autocomplete-items"></ul>
 
     input[type="date"],
     select {
@@ -309,8 +313,8 @@
   <!-- Form Pencarian Nama Peserta -->
 <div class="form-group">
   <label for="name">Nama Peserta:</label>
-  <input type="text" id="name" list="nama-options" placeholder="Ketik nama peserta..." />
-  <datalist id="nama-options"></datalist>
+  <input type="text" id="name" placeholder="Ketik nama peserta..." autocomplete="off" />
+  <ul id="autocomplete-list" class="autocomplete-items"></ul>
 </div>
    <div class="form-group">
     <label for="birthdate">Tanggal Lahir:</label>
@@ -358,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("Peserta%20JPKM%20s.d%2010%20Juli%202025%20New.json")
     .then((response) => response.json())
     .then((data) => {
-      pesertaList = (data["Peserta_11-07-2025"] || []).map((item) => item["Nama Member"]);
+      pesertaList = (data["Peserta_11-07-2025"] || []).map(item => item["Nama Member"]);
     });
 
   nameInput.addEventListener("input", function () {
@@ -367,11 +371,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!input) return;
 
-    const suggestions = pesertaList.filter((nama) =>
-      nama.toLowerCase().startsWith(input)
+    const suggestions = pesertaList.filter(nama =>
+      nama.toLowerCase().includes(input)
     ).slice(0, 10);
 
-    suggestions.forEach((nama) => {
+    suggestions.forEach(nama => {
       const li = document.createElement("li");
       li.textContent = nama;
       li.addEventListener("click", function () {
@@ -393,6 +397,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </body>
 
 </html>
+
 
 
 

@@ -323,9 +323,28 @@
     </div>
    </div> <!-- Ini penutup .container -->
   <script src="script.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('data.json') // Pastikan file ini berada di direktori yang sama
+    .then(response => response.json())
+    .then(data => {
+      const datalist = document.getElementById('nama-options');
+      const uniqueNames = [...new Set(data.map(p => p.nama))]; // Hindari duplikat
+
+      uniqueNames.forEach(nama => {
+        const option = document.createElement('option');
+        option.value = nama;
+        datalist.appendChild(option);
+      });
+    });
+});
+</script>
+
 </body>
 
 </html>
+
 
 
 

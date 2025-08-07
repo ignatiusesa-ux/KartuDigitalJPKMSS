@@ -281,10 +281,12 @@
     <h2>Pencarian Data Peserta JPKM</h2>
 
   <form id="identity-form">
-  <div class="form-group">
-    <label for="name">Nama Peserta:</label>
-    <input type="text" id="name" />
-  </div>
+  <!-- Form Pencarian Nama Peserta -->
+<div class="form-group">
+  <label for="name">Nama Peserta:</label>
+  <input type="text" id="name" list="nama-options" placeholder="Ketik nama peserta..." />
+  <datalist id="nama-options"></datalist>
+</div>
    <div class="form-group">
     <label for="birthdate">Tanggal Lahir:</label>
     <input type="date" id="birthdate" />
@@ -324,5 +326,6 @@
 </body>
 
 </html>
+
 
 

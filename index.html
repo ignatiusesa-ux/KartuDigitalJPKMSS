@@ -1,158 +1,326 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kartu Peserta JPKM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pencarian Data Peserta JPKM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      padding: 5px;
+      text-align: center;
+    }
+    
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+    img.logo {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
-      background-color: #f0f0f0;
+      max-width: 400px;
+      margin: 0 auto 30px;
     }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #loading, #not-found {
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    #not-found {
+      color: red;
+    }
+
     .kartu-container {
       position: relative;
-      width: 90vw;
-      max-width: 700px;
-    }
-    .kartu-container img {
+      display: inline-block;
+      margin-top: 30px;
       width: 100%;
-      height: auto;
-      display: block;
+      max-width: 500px;
+      text-align: left; /* untuk teks di dalam kartu */
     }
+
+
+    .kartu-gambar {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+
+
     .text-field {
       position: absolute;
-      font-size: calc(10px + 0.4vw);
-      color: black;
+      font-size: 14px;
       font-weight: bold;
-      white-space: nowrap;
-    }
-    .field-center {
-      width: 100%;
-      text-align: center;
-      left: 0;
-      right: 0;
+      color: black;
     }
 
-    /* SISWA */
-    .kartu-siswa .nama        { top: 16%; left: 7.5%; }
-    .kartu-siswa .nojpkm      { top: 19%; left: 7.5%; }
-    .kartu-siswa .namagrup    { top: 22%; left: 7.5%; }
-    .kartu-siswa .ppkbasis    { top: 25%; left: 21%; }
-    .kartu-siswa .tgllahir    { top: 22%; right: 8%; }
-    .kartu-siswa .klinik      { top: 28%; left: 21%; }
-    .kartu-siswa .plafon      { top: 31%; left: 21%; }
-    .kartu-siswa .gigi        { top: 34%; left: 21%; }
-    .kartu-siswa .masaberlaku { top: 37%; left: 21%; }
-    .kartu-siswa .namapaket   { top: 44%; font-size: calc(11px + 0.6vw); }
+    /* Paket SISWA */
+    .kartu-siswa .nama        { top: 110px; left: 52px; }
+    .kartu-siswa .nojpkm      { top: 130px; left: 52px; }
+    .kartu-siswa .namagrup    { top: 150px; left: 52px; }
+    .kartu-siswa .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-siswa .tgllahir    { top: 152px; right: 58px; }
+    .kartu-siswa .klinik      { top: 187px; left: 150px; }
+    .kartu-siswa .plafon      { top: 205px; left: 150px; }
+    .kartu-siswa .gigi        { top: 218px; left: 150px; }
+    .kartu-siswa .masaberlaku { top: 235px; left: 150px; }
+    .kartu-siswa .namapaket   { top: 258px; left: 50%; transform: translateX(-50%); text-align: center; }
 
-    /* DASAR PLUS, PRIMER, MIX, ADVANCED, EXECUTIVE, PLATINUM, KEUSKUPAN (semua pakai posisi DASAR PLUS) */
-    .kartu-dasarplus .nama,
-    .kartu-primer .nama,
-    .kartu-mix .nama,
-    .kartu-advanced .nama,
-    .kartu-executive .nama,
-    .kartu-platinum .nama,
-    .kartu-keuskupan .nama { top: 16.5%; left: 7.5%; }
+    /* Paket DASAR PLUS */
+    .kartu-dasarplus .nama        { top: 115px; left: 52px; }
+    .kartu-dasarplus .nojpkm      { top: 132px; left: 52px; }
+    .kartu-dasarplus .namagrup    { top: 150px; left: 52px; }
+    .kartu-dasarplus .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-dasarplus .tgllahir    { top: 236px; left: 150px; }
+    .kartu-dasarplus .klinik      { top: 187px; left: 150px; }
+    .kartu-dasarplus .plafon      { top: 205px; left: 150px; }
+    .kartu-dasarplus .gigi        { top: 218px; left: 150px; }
+    .kartu-dasarplus .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .nojpkm,
-    .kartu-primer .nojpkm,
-    .kartu-mix .nojpkm,
-    .kartu-advanced .nojpkm,
-    .kartu-executive .nojpkm,
-    .kartu-platinum .nojpkm,
-    .kartu-keuskupan .nojpkm { top: 19.2%; left: 7.5%; }
+    /* Paket PRIMER */
+    .kartu-primer .nama        { top: 115px; left: 52px; }
+    .kartu-primer .nojpkm      { top: 132px; left: 52px; }
+    .kartu-primer .namagrup    { top: 150px; left: 52px; }
+    .kartu-primer .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-primer .tgllahir    { top: 236px; left: 150px; }
+    .kartu-primer .klinik      { top: 187px; left: 150px; }
+    .kartu-primer .plafon      { top: 205px; left: 150px; }
+    .kartu-primer .gigi        { top: 218px; left: 150px; }
+    .kartu-primer .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .namagrup,
-    .kartu-primer .namagrup,
-    .kartu-mix .namagrup,
-    .kartu-advanced .namagrup,
-    .kartu-executive .namagrup,
-    .kartu-platinum .namagrup,
-    .kartu-keuskupan .namagrup { top: 22%; left: 7.5%; }
+    /* Paket MIX */
+    .kartu-mix .nama        { top: 115px; left: 52px; }
+    .kartu-mix .nojpkm      { top: 132px; left: 52px; }
+    .kartu-mix .namagrup    { top: 150px; left: 52px; }
+    .kartu-mix .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-mix .tgllahir    { top: 236px; left: 150px; }
+    .kartu-mix .klinik      { top: 187px; left: 150px; }
+    .kartu-mix .plafon      { top: 205px; left: 150px; }
+    .kartu-mix .gigi        { top: 218px; left: 150px; }
+    .kartu-mix .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .ppkbasis,
-    .kartu-primer .ppkbasis,
-    .kartu-mix .ppkbasis,
-    .kartu-advanced .ppkbasis,
-    .kartu-executive .ppkbasis,
-    .kartu-platinum .ppkbasis,
-    .kartu-keuskupan .ppkbasis { top: 25%; left: 21%; }
+    /* Paket ADVANCED */
+    .kartu-advanced .nama        { top: 115px; left: 52px; }
+    .kartu-advanced .nojpkm      { top: 132px; left: 52px; }
+    .kartu-advanced .namagrup    { top: 150px; left: 52px; }
+    .kartu-advanced .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-advanced .tgllahir    { top: 236px; left: 150px; }
+    .kartu-advanced .klinik      { top: 187px; left: 150px; }
+    .kartu-advanced .plafon      { top: 205px; left: 150px; }
+    .kartu-advanced .gigi        { top: 218px; left: 150px; }
+    .kartu-advanced .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .tgllahir,
-    .kartu-primer .tgllahir,
-    .kartu-mix .tgllahir,
-    .kartu-advanced .tgllahir,
-    .kartu-executive .tgllahir,
-    .kartu-platinum .tgllahir,
-    .kartu-keuskupan .tgllahir { top: 36%; left: -10%; }
+    /* Paket EXECUTIVE */
+    .kartu-executive .nama        { top: 115px; left: 52px; }
+    .kartu-executive .nojpkm      { top: 132px; left: 52px; }
+    .kartu-executive .namagrup    { top: 150px; left: 52px; }
+    .kartu-executive .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-executive .tgllahir    { top: 236px; left: 150px; }
+    .kartu-executive .klinik      { top: 187px; left: 150px; }
+    .kartu-executive .plafon      { top: 205px; left: 150px; }
+    .kartu-executive .gigi        { top: 218px; left: 150px; }
+    .kartu-executive .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .klinik,
-    .kartu-primer .klinik,
-    .kartu-mix .klinik,
-    .kartu-advanced .klinik,
-    .kartu-executive .klinik,
-    .kartu-platinum .klinik,
-    .kartu-keuskupan .klinik { top: 28%; left: 21%; }
+    /* Paket PLATINUM */
+    .kartu-platinum * {color: #f5e188 !important;}
+    .kartu-platinum .nama        { top: 115px; left: 52px; }
+    .kartu-platinum .nojpkm      { top: 132px; left: 52px; }
+    .kartu-platinum .namagrup    { top: 150px; left: 52px; }
+    .kartu-platinum .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-platinum .tgllahir    { top: 236px; left: 150px; }
+    .kartu-platinum .klinik      { top: 187px; left: 150px; }
+    .kartu-platinum .plafon      { top: 205px; left: 150px; }
+    .kartu-platinum .gigi        { top: 218px; left: 150px; }
+    .kartu-platinum .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .plafon,
-    .kartu-primer .plafon,
-    .kartu-mix .plafon,
-    .kartu-advanced .plafon,
-    .kartu-executive .plafon,
-    .kartu-platinum .plafon,
-    .kartu-keuskupan .plafon { top: 31%; left: 21%; }
+    /* Paket KEUSKUPAN */
+    .kartu-keuskupan .nama        { top: 115px; left: 52px; }
+    .kartu-keuskupan .nojpkm      { top: 132px; left: 52px; }
+    .kartu-keuskupan .namagrup    { top: 150px; left: 52px; }
+    .kartu-keuskupan .ppkbasis    { top: 168px; left: 150px; }
+    .kartu-keuskupan .tgllahir    { top: 236px; left: 150px; }
+    .kartu-keuskupan .klinik      { top: 187px; left: 150px; }
+    .kartu-keuskupan .plafon      { top: 205px; left: 150px; }
+    .kartu-keuskupan .gigi        { top: 218px; left: 150px; }
+    .kartu-keuskupan .masaberlaku { top: 247px; left: 318px; }
 
-    .kartu-dasarplus .gigi,
-    .kartu-primer .gigi,
-    .kartu-mix .gigi,
-    .kartu-advanced .gigi,
-    .kartu-executive .gigi,
-    .kartu-platinum .gigi,
-    .kartu-keuskupan .gigi { top: 34%; left: 21%; }
+    @media only screen and (max-width: 600px) {
+  .kartu-siswa .nama        { top: 90px; left: 42px; }
+  .kartu-siswa .nojpkm      { top: 103px; left: 42px; }
+  .kartu-siswa .namagrup    { top: 116px; left: 42px; }
+  .kartu-siswa .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-siswa .tgllahir    { top: 120px; left: 289px; } /* ubah dari right jadi left */
+  .kartu-siswa .klinik      { top: 145px; left: 118px; }
+  .kartu-siswa .plafon      { top: 158px; left: 118px; }
+  .kartu-siswa .gigi        { top: 169px; left: 1180px; }
+  .kartu-siswa .masaberlaku { top: 184px; left: 118px; }
+  .kartu-siswa .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-dasarplus .nama        { top: 90px; left: 42px; }
+  .kartu-dasarplus .nojpkm      { top: 103px; left: 42px; }
+  .kartu-dasarplus .namagrup    { top: 116px; left: 42px; }
+  .kartu-dasarplus .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-dasarplus .tgllahir    { top: 185px; left: 118px; }
+  .kartu-dasarplus .klinik      { top: 145px; left: 118px; }
+  .kartu-dasarplus .plafon      { top: 158px; left: 118px; }
+  .kartu-dasarplus .gigi        { top: 170px; left: 118px; }
+  .kartu-dasarplus .masaberlaku { top: 194px; left: 249px; }
+  .kartu-dasarplus .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-mix .nama        { top: 90px; left: 42px; }
+  .kartu-mix .nojpkm      { top: 103px; left: 42px; }
+  .kartu-mix .namagrup    { top: 116px; left: 42px; }
+  .kartu-mix .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-mix .tgllahir    { top: 180px; left: 118px; }
+  .kartu-mix .klinik      { top: 145px; left: 118px; }
+  .kartu-mix .plafon      { top: 158px; left: 118px; }
+  .kartu-mix .gigi        { top: 170px; left: 118px; }
+  .kartu-mix .masaberlaku { top: 194px; left: 249px; }
+  .kartu-mix .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-primer .nama        { top: 90px; left: 42px; }
+  .kartu-primer .nojpkm      { top: 103px; left: 42px; }
+  .kartu-primer .namagrup    { top: 116px; left: 42px; }
+  .kartu-primer .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-primer .tgllahir    { top: 183px; left: 118px; }
+  .kartu-primer .klinik      { top: 145px; left: 118px; }
+  .kartu-primer .plafon      { top: 158px; left: 118px; }
+  .kartu-primer .gigi        { top: 170px; left: 118px; }
+  .kartu-primer .masaberlaku { top: 194px; left: 249px; }
+  .kartu-primer .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-advanced .nama        { top: 90px; left: 42px; }
+  .kartu-advanced .nojpkm      { top: 103px; left: 42px; }
+  .kartu-advanced .namagrup    { top: 116px; left: 42px; }
+  .kartu-advanced .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-advanced .tgllahir    { top: 183px; left: 118px; }
+  .kartu-advanced .klinik      { top: 145px; left: 118px; }
+  .kartu-advanced .plafon      { top: 158px; left: 118px; }
+  .kartu-advanced .gigi        { top: 170px; left: 118px; }
+  .kartu-advanced .masaberlaku { top: 180px; left: 249px; }
+  .kartu-advanced .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-executive .nama        { top: 90px; left: 42px; }
+  .kartu-executive .nojpkm      { top: 103px; left: 42px; }
+  .kartu-executive .namagrup    { top: 116px; left: 42px; }
+  .kartu-executive .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-executive .tgllahir    { top: 183px; left: 118px; }
+  .kartu-executive .klinik      { top: 145px; left: 118px; }
+  .kartu-executive .plafon      { top: 158px; left: 118px; }
+  .kartu-executive .gigi        { top: 170px; left: 118px; }
+  .kartu-executive .masaberlaku { top: 185px; left: 249px; }
+  .kartu-executive .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+    @media only screen and (max-width: 600px) {
+  .kartu-platinum .nama        { top: 90px; left: 42px; }
+  .kartu-platinum .nojpkm      { top: 103px; left: 42px; }
+  .kartu-platinum .namagrup    { top: 116px; left: 42px; }
+  .kartu-platinum .ppkbasis    { top: 131px; left: 118px; }
+  .kartu-platinum .tgllahir    { top: 183px; left: 118px; }
+  .kartu-platinum .klinik      { top: 145px; left: 118px; }
+  .kartu-platinum .plafon      { top: 158px; left: 118px; }
+  .kartu-platinum .gigi        { top: 198px; left: 100px; }
+  .kartu-platinum .masaberlaku { top: 185px; left: 249px; }
+  .kartu-platinum .namapaket   { top: 210px; left: 50%; transform: translateX(-50%); text-align: center; }
+}
+   @media only screen and (max-width: 600px) {
+    .text-field {
+      font-size: 10px; /* Atur sesuai kebutuhan */
+    } 
 
-    .kartu-dasarplus .masaberlaku,
-    .kartu-primer .masaberlaku,
-    .kartu-mix .masaberlaku,
-    .kartu-advanced .masaberlaku,
-    .kartu-executive .masaberlaku,
-    .kartu-platinum .masaberlaku,
-    .kartu-keuskupan .masaberlaku { top: 37%; left: 45%; }
-
-    .kartu-dasarplus .namapaket,
-    .kartu-primer .namapaket,
-    .kartu-mix .namapaket,
-    .kartu-advanced .namapaket,
-    .kartu-executive .namapaket,
-    .kartu-platinum .namapaket,
-    .kartu-keuskupan .namapaket {
-      top: 44%;
-      font-size: calc(11px + 0.6vw);
-    }
-
-    /* Warna khusus untuk platinum */
-    .kartu-platinum .text-field {
-      color: #f5e188;
-    }
   </style>
 </head>
 <body>
-  <div class="kartu-container kartu-siswa">
-    <img src="Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg" alt="Kartu Peserta Siswa" />
-    <div class="text-field nama" id="field-nama">Nama Peserta</div>
-    <div class="text-field nojpkm" id="field-nojpkm">No JPKM</div>
-    <div class="text-field namagrup" id="field-namagrup">Nama Grup</div>
-    <div class="text-field ppkbasis" id="field-ppkbasis">PPK Basis</div>
-    <div class="text-field tgllahir" id="field-tgllahir">Tgl Lahir</div>
-    <div class="text-field klinik" id="field-klinik">Klinik</div>
-    <div class="text-field plafon" id="field-plafon">Plafon</div>
-    <div class="text-field gigi" id="field-gigi">Gigi</div>
-    <div class="text-field masaberlaku" id="field-masaberlaku">Masa Berlaku</div>
-    <div class="text-field field-center namapaket" id="field-namapaket">SISWA</div>
+  <div class="container">
+    <img src="JPKM LOGO.png" alt="Logo JPKM" class="logo" />
+    <h2>Pencarian Data Peserta JPKM</h2>
+
+  <form id="identity-form">
+  <div class="form-group">
+    <label for="name">Nama Peserta:</label>
+    <input type="text" id="name" />
   </div>
+   <div class="form-group">
+    <label for="birthdate">Tanggal Lahir:</label>
+    <input type="date" id="birthdate" />
+  </div>
+  <div class="form-group">
+    <label for="package">Nama Paket:</label>
+    <select id="package">
+      <option value="">-- Pilih Paket --</option>
+      <option value="SISWA">SISWA</option>
+      <option value="MAHASISWA">MAHASISWA</option>
+      <option value="UMUM">UMUM</option>
+    </select>
+  </div>
+  <button type="submit">Cari</button>
+</form>
+
+
+  <div id="loading" style="display: none;">Memuat data...</div>
+  <div id="not-found" style="display: none;">Data tidak ditemukan. Silakan periksa kembali input Anda.</div>
+
+  <div id="result" style="display: none;">
+    <div class="kartu-container" id="kartu-container">
+      <img id="kartu-gambar" class="kartu-gambar" />
+      <div class="text-field nama" id="field-nama"></div>
+      <div class="text-field nojpkm" id="field-nojpkm"></div>
+      <div class="text-field namagrup" id="field-namagrup"></div>
+      <div class="text-field ppkbasis" id="field-ppkbasis"></div>
+      <div class="text-field tgllahir" id="field-tgllahir"></div>
+      <div class="text-field klinik" id="field-klinik"></div>
+      <div class="text-field plafon" id="field-plafon"></div>
+      <div class="text-field gigi" id="field-gigi"></div>
+      <div class="text-field masaberlaku" id="field-masaberlaku"></div>
+      <div class="text-field namapaket" id="field-namapaket" style="display: none;"></div>
+    </div>
+   </div> <!-- Ini penutup .container -->
+  <script src="script.js"></script>
 </body>
+
 </html>

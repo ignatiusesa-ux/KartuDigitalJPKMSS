@@ -5,6 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pencarian Data Peserta JPKM</title>
   <style>
+    .autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 99;
+  background-color: white;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  margin-top: 0;
+}
+
+.autocomplete-items li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-items li:hover {
+  background-color: #e9e9e9;
+}
+
     body {
       font-family: Arial, sans-serif;
       padding: 5px;
@@ -47,7 +70,9 @@
       font-weight: bold;
     }
 
-    input[type="text"],
+    <input type="text" id="name" name="name" placeholder="Ketik Nama Peserta..." autocomplete="off" />
+<ul id="autocomplete-list" class="autocomplete-items"></ul>
+
     input[type="date"],
     select {
       width: 100%;
@@ -325,25 +350,50 @@
   <script src="script.js"></script>
 
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-  fetch('Peserta JPKM s.d 10 Juli 2025 New.json') // Pastikan file ini berada di direktori yang sama
-    .then(response => response.json())
-    .then(data => {
-      const datalist = document.getElementById('nama-options');
-      const uniqueNames = [...new Set(data.map(p => p.nama))]; // Hindari duplikat
+document.addEventListener("DOMContentLoaded", function () {
+  const nameInput = document.getElementById("name");
+  const autocompleteList = document.getElementById("autocomplete-list");
+  let pesertaList = [];
 
-      uniqueNames.forEach(nama => {
-        const option = document.createElement('option');
-        option.value = nama;
-        datalist.appendChild(option);
-      });
+  fetch("Peserta%20JPKM%20s.d%2010%20Juli%202025%20New.json")
+    .then((response) => response.json())
+    .then((data) => {
+      pesertaList = (data["Peserta_11-07-2025"] || []).map((item) => item["Nama Member"]);
     });
+
+  nameInput.addEventListener("input", function () {
+    const input = this.value.toLowerCase();
+    autocompleteList.innerHTML = "";
+
+    if (!input) return;
+
+    const suggestions = pesertaList.filter((nama) =>
+      nama.toLowerCase().startsWith(input)
+    ).slice(0, 10);
+
+    suggestions.forEach((nama) => {
+      const li = document.createElement("li");
+      li.textContent = nama;
+      li.addEventListener("click", function () {
+        nameInput.value = nama;
+        autocompleteList.innerHTML = "";
+      });
+      autocompleteList.appendChild(li);
+    });
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.target !== nameInput) {
+      autocompleteList.innerHTML = "";
+    }
+  });
 });
 </script>
 
 </body>
 
 </html>
+
 
 
 

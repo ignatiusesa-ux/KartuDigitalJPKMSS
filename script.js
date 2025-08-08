@@ -2,8 +2,16 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("identity-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const nameInput = document.getElementById("name").value.trim().toLowerCase();
-    const packageInput = document.getElementById("package").value.trim().toUpperCase();
+    function normalizeText(text) {
+    return text
+        ?.toLowerCase()
+        .trim()
+        .replace(/\s+/g, " "); // hapus spasi ganda
+}
+
+    const nameInput = normalizeText(document.getElementById("name").value);
+    const packageInput = normalizeText(document.getElementById("package").value);
+
 
     const loadingElement = document.getElementById("loading");
     const resultElement = document.getElementById("result");
@@ -22,20 +30,19 @@ window.addEventListener("DOMContentLoaded", function () {
         const list = data["Peserta_11-07-2025"] || [];
 
         const peserta = list.find((item) => {
-          const nama = item["Nama Member"]?.toLowerCase();
-          const jenisPaket = item["Paket"]?.toUpperCase();
+    const nama = normalizeText(item["Nama Member"]);
+    const jenisPaket = normalizeText(item["Paket"]);
 
-          const matchNama = nameInput && nama === nameInput;
+    const matchNama = nameInput && nama === nameInput;
 
-         if (packageInput === "SISWA" || packageInput === "MAHASISWA") {
-            return matchNama && (jenisPaket === "SISWA" || jenisPaket === "MAHASISWA");
-            } else if (packageInput === "UMUM") {
-            return matchNama && jenisPaket !== "SISWA" && jenisPaket !== "MAHASISWA";
-            }
+    if (packageInput === "siswa" || packageInput === "mahasiswa") {
+        return matchNama && (jenisPaket === "siswa" || jenisPaket === "mahasiswa");
+    } else if (packageInput === "umum") {
+        return matchNama && jenisPaket !== "siswa" && jenisPaket !== "mahasiswa";
+    }
 
-
-          return false;
-        });
+    return false;
+});
 
         loadingElement.style.display = "none";
 
@@ -120,3 +127,4 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+

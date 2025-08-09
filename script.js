@@ -36,8 +36,9 @@ window.addEventListener("DOMContentLoaded", function () {
     const matchNama = nameInput && nama === nameInput;
 
     if (packageInput === "siswa" || packageInput === "mahasiswa") {
-        return matchNama && (jenisPaket === "siswa" || jenisPaket === "mahasiswa");
-    } else if (packageInput === "umum") {
+    return matchNama && (jenisPaket.includes("siswa") || jenisPaket.includes("mahasiswa"));
+}
+ else if (packageInput === "umum") {
         return matchNama && jenisPaket !== "siswa" && jenisPaket !== "mahasiswa";
     }
 
@@ -127,3 +128,4 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+

@@ -46,6 +46,15 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
         loadingElement.style.display = "none";
+function cariPeserta() {
+    let namaInput = document.getElementById("input-nama").value.trim().toLowerCase();
+    let paketDipilih = document.getElementById("input-paket").value.trim().toLowerCase();
+
+    // cari data di JSON yang cocok dengan nama & paket
+    let peserta = data.find(item =>
+        item.Nama.toLowerCase() === namaInput &&
+        item.Paket && item.Paket.toLowerCase().includes(paketDipilih)
+    );
 
         if (peserta) {
           const jenisPaket = peserta["Paket"]?.toUpperCase();
@@ -129,6 +138,7 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
 
 
 

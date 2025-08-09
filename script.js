@@ -120,14 +120,17 @@ if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
 resultElement.style.display = "block";
           
           // Nama Paket hanya untuk Siswa
-          const namaPaketField = document.getElementById("field-namapaket");
-         if (jenisPaket === "SISWA" || jenisPaket === "MAHASISWA") {
-            namaPaketField.textContent = peserta["Paket"];
-            namaPaketField.style.display = "block";
-          } else {
-            namaPaketField.textContent = "";
-            namaPaketField.style.display = "none";
-          }
+          const jenisPaket = peserta["Paket"]?.toUpperCase();
+
+// kalau paketnya mengandung kata SISWA atau MAHASISWA
+if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
+    namaPaketField.textContent = peserta["Paket"]; // tampilkan persis sesuai JSON
+    namaPaketField.style.display = "block";
+} else {
+    namaPaketField.textContent = "";
+    namaPaketField.style.display = "none";
+}
+
 
           resultElement.style.display = "block";
         } else {
@@ -141,5 +144,6 @@ resultElement.style.display = "block";
       });
   });
 });
+
 
 

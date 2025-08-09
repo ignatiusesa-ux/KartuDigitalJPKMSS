@@ -130,7 +130,7 @@ function cariPeserta() {
         } else {
           notFoundElement.style.display = "block";
         }
-      })
+      )
       .catch((error) => {
         loadingElement.style.display = "none";
         notFoundElement.style.display = "block";
@@ -138,6 +138,7 @@ function cariPeserta() {
       });
   });
 });
+
 
 
 

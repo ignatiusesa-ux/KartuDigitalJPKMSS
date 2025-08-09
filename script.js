@@ -105,7 +105,7 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
           document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`
-
+          document.getElementById("field-namapaket").textContent = peserta.Paket;
 
           // Nama Paket hanya untuk Siswa
           const namaPaketField = document.getElementById("field-namapaket");
@@ -129,6 +129,7 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
 
 
 

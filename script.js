@@ -107,6 +107,18 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
           document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
 
+          const jenisPaket = peserta["Paket"]?.toUpperCase();
+const namaPaketField = document.getElementById("field-namapaket");
+if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
+    namaPaketField.textContent = peserta["Paket"]; // tampilkan persis sesuai JSON
+    namaPaketField.style.display = "block";
+} else {
+    namaPaketField.textContent = "";
+    namaPaketField.style.display = "none";
+}
+
+resultElement.style.display = "block";
+          
           // Nama Paket hanya untuk Siswa
           const namaPaketField = document.getElementById("field-namapaket");
          if (jenisPaket === "SISWA" || jenisPaket === "MAHASISWA") {
@@ -129,4 +141,5 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
 

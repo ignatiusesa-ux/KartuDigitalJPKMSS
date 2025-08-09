@@ -36,9 +36,8 @@ window.addEventListener("DOMContentLoaded", function () {
     const matchNama = nameInput && nama === nameInput;
 
     if (packageInput === "siswa" || packageInput === "mahasiswa") {
-    return matchNama && (jenisPaket.includes("siswa") || jenisPaket.includes("mahasiswa"));
-}
- else if (packageInput === "umum") {
+        return matchNama && (jenisPaket === "siswa" || jenisPaket === "mahasiswa");
+    } else if (packageInput === "umum") {
         return matchNama && jenisPaket !== "siswa" && jenisPaket !== "mahasiswa";
     }
 
@@ -46,15 +45,6 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
         loadingElement.style.display = "none";
-function cariPeserta() {
-    let namaInput = document.getElementById("input-nama").value.trim().toLowerCase();
-    let paketDipilih = document.getElementById("input-paket").value.trim().toLowerCase();
-
-    // cari data di JSON yang cocok dengan nama & paket
-    let peserta = data.find(item =>
-        item.Nama.toLowerCase() === namaInput &&
-        item.Paket && item.Paket.toLowerCase().includes(paketDipilih)
-    );
 
         if (peserta) {
           const jenisPaket = peserta["Paket"]?.toUpperCase();
@@ -113,8 +103,7 @@ function cariPeserta() {
           document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
           document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
           document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
-          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`
-          document.getElementById("field-namapaket").textContent = peserta.Paket;
+          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
 
           // Nama Paket hanya untuk Siswa
           const namaPaketField = document.getElementById("field-namapaket");
@@ -130,7 +119,7 @@ function cariPeserta() {
         } else {
           notFoundElement.style.display = "block";
         }
-      )
+      })
       .catch((error) => {
         loadingElement.style.display = "none";
         notFoundElement.style.display = "block";
@@ -138,11 +127,3 @@ function cariPeserta() {
       });
   });
 });
-
-
-
-
-
-
-
-

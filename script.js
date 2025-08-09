@@ -29,16 +29,18 @@ window.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         const list = data["Peserta_11-07-2025"] || [];
 
-        const peserta = list.find((item) => {
+       const peserta = list.find((item) => {
     const nama = normalizeText(item["Nama Member"]);
     const jenisPaket = normalizeText(item["Paket"]);
 
     const matchNama = nameInput && nama === nameInput;
 
-    if (packageInput === "siswa" || packageInput === "mahasiswa") {
-        return matchNama && (jenisPaket === "siswa" || jenisPaket === "mahasiswa");
+    if (packageInput === "siswa") {
+        return matchNama && jenisPaket.includes("siswa");
+    } else if (packageInput === "mahasiswa") {
+        return matchNama && jenisPaket.includes("mahasiswa");
     } else if (packageInput === "umum") {
-        return matchNama && jenisPaket !== "siswa" && jenisPaket !== "mahasiswa";
+        return matchNama && !jenisPaket.includes("siswa") && !jenisPaket.includes("mahasiswa");
     }
 
     return false;
@@ -127,3 +129,4 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+

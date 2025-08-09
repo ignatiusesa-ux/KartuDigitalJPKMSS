@@ -49,72 +49,78 @@ window.addEventListener("DOMContentLoaded", function () {
         loadingElement.style.display = "none";
 
         if (peserta) {
-          const jenisPaket = peserta["Paket"]?.toUpperCase();
-          let cssClass = "";
-          let gambar = "";
+    // Ambil jenis paket sekali saja
+    const jenisPaket = peserta["Paket"]?.toUpperCase();
+    let cssClass = "";
+    let gambar = "";
 
-          switch (jenisPaket) {
-            case "SISWA":
-            case "MAHASISWA":
-              cssClass = "kartu-siswa";
-              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "DASAR PLUS":
-              cssClass = "kartu-dasarplus";
-              gambar = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "PRIMER":
-              cssClass = "kartu-primer";
-              gambar = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "MIX":
-              cssClass = "kartu-mix";
-              gambar = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "ADVANCED":
-              cssClass = "kartu-advanced";
-              gambar = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "EXECUTIVE":
-              cssClass = "kartu-executive";
-              gambar = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "PLATINUM":
-              cssClass = "kartu-platinum";
-              gambar = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            case "KEUSKUPAN":
-              cssClass = "kartu-keuskupan";
-              gambar = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
-              break;
-            default:
-              cssClass = "kartu-siswa";
-              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
-          }
+    switch (jenisPaket) {
+      case "SISWA":
+      case "MAHASISWA":
+        cssClass = "kartu-siswa";
+        gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "DASAR PLUS":
+        cssClass = "kartu-dasarplus";
+        gambar = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "PRIMER":
+        cssClass = "kartu-primer";
+        gambar = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "MIX":
+        cssClass = "kartu-mix";
+        gambar = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "ADVANCED":
+        cssClass = "kartu-advanced";
+        gambar = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "EXECUTIVE":
+        cssClass = "kartu-executive";
+        gambar = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "PLATINUM":
+        cssClass = "kartu-platinum";
+        gambar = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      case "KEUSKUPAN":
+        cssClass = "kartu-keuskupan";
+        gambar = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
+        break;
+      default:
+        cssClass = "kartu-siswa";
+        gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+    }
 
-          // Set class dan gambar kartu
-          kartuContainer.className = `kartu-container ${cssClass}`;
-          kartuGambar.src = gambar;
+    // Set class dan gambar kartu
+    kartuContainer.className = `kartu-container ${cssClass}`;
+    kartuGambar.src = gambar;
 
-          // Isi data ke kartu
-          document.getElementById("field-nama").textContent = peserta["Nama Member"];
-          document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
-          document.getElementById("field-namagrup").textContent = peserta["Grup"];
-          document.getElementById("field-ppkbasis").textContent = peserta["PPK Basis"];
-          document.getElementById("field-tgllahir").textContent = peserta["Tanggal Lahir"];
-          document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
-          document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
-          document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
-          document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
+    // Isi data ke kartu
+    document.getElementById("field-nama").textContent = peserta["Nama Member"];
+    document.getElementById("field-nojpkm").textContent = peserta["No JPKM"];
+    document.getElementById("field-namagrup").textContent = peserta["Grup"];
+    document.getElementById("field-ppkbasis").textContent = peserta["PPK Basis"];
+    document.getElementById("field-tgllahir").textContent = peserta["Tanggal Lahir"];
+    document.getElementById("field-klinik").textContent = peserta["Klinik Layanan"];
+    document.getElementById("field-plafon").textContent = peserta["Kode Plafond"];
+    document.getElementById("field-gigi").textContent = peserta["Paket Tambahan"];
+    document.getElementById("field-masaberlaku").textContent = `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
 
-          const jenisPaket = peserta["Paket"]?.toUpperCase();
-const namaPaketField = document.getElementById("field-namapaket");
-if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
-    namaPaketField.textContent = peserta["Paket"]; // tampilkan persis sesuai JSON
-    namaPaketField.style.display = "block";
+    // Tampilkan nama paket sesuai JSON jika mengandung SISWA atau MAHASISWA
+    const namaPaketField = document.getElementById("field-namapaket");
+    if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
+        namaPaketField.textContent = peserta["Paket"];
+        namaPaketField.style.display = "block";
+    } else {
+        namaPaketField.textContent = "";
+        namaPaketField.style.display = "none";
+    }
+
+    resultElement.style.display = "block";
 } else {
-    namaPaketField.textContent = "";
-    namaPaketField.style.display = "none";
+    notFoundElement.style.display = "block";
 }
 
 resultElement.style.display = "block";
@@ -144,6 +150,7 @@ if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
       });
   });
 });
+
 
 
 

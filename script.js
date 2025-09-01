@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
           const matchNama = nameInput && nama === nameInput;
 
-          if (packageInput === "siswa") {
+          if (packageInput === "siswa" || packageInput === "siswa santo aloysius") {
             return matchNama && jenisPaket.includes("siswa");
           } else if (packageInput === "mahasiswa") {
             return matchNama && jenisPaket.includes("mahasiswa");
@@ -53,6 +53,10 @@ window.addEventListener("DOMContentLoaded", function () {
           let gambar = "";
 
           switch (jenisPaket) {
+            case "SISWA SANTO ALOYSIUS":
+              cssClass = "kartu-siswa";
+              gambar = "Kartu Peserta Siswa Aloysius Kosong Untuk Web Kartu DepanBelakang.jpg";
+              break;
             case "SISWA":
             case "MAHASISWA":
               cssClass = "kartu-siswa";
@@ -129,3 +133,4 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+

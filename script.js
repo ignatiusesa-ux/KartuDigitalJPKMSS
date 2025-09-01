@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
           switch (jenisPaket) {
             case "SISWA SANTO ALOYSIUS":
-              cssClass = "kartu-siswa";
+              cssClass = "kartu-aloysius";
               gambar = "Kartu Peserta Siswa Aloysius Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "SISWA":
@@ -133,4 +133,5 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
 

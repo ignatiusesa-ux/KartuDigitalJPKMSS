@@ -147,14 +147,17 @@
     .kartu-aloysius .nama        { top: 110px; left: 52px; }
     .kartu-aloysius .nojpkm      { top: 130px; left: 52px; }
     .kartu-aloysius .namagrup    { top: 150px; left: 52px; }
-    .kartu-aloysius .ppkbasis    { top: 168px; left: 150px; }
     .kartu-aloysius .tgllahir    { top: 152px; right: 58px; }
-    .kartu-aloysius .klinik      { top: 187px; left: 150px; }
-    .kartu-aloysius .plafon      { top: 205px; left: 150px; }
-    .kartu-aloysius .gigi        { top: 218px; left: 150px; }
     .kartu-aloysius .masaberlaku { top: 235px; left: 150px; }
-    .kartu-aloysius .namapaket   { top: 258px; left: 50%; transform: translateX(-50%); text-align: center; }
-
+    
+    /* Hide elemen tertentu */
+    .kartu-aloysius .ppkbasis,
+    .kartu-aloysius .klinik,
+    .kartu-aloysius .plafon,
+    .kartu-aloysius .gigi,
+    .kartu-aloysius .namapaket {
+      display: none !important;
+    }
 
     /* Paket DASAR PLUS */
     .kartu-dasarplus .nama        { top: 115px; left: 52px; }
@@ -440,6 +443,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </body>
 
 </html>
+
 
 
 

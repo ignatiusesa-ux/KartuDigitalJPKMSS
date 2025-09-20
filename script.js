@@ -36,8 +36,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
           if (packageInput === "siswa" || packageInput === "siswa santo aloysius") {
             return matchNama && jenisPaket.includes("siswa");
-          } else if (packageInput === "mahasiswa") {
-            return matchNama && jenisPaket.includes("mahasiswa");
+          } else if (packageInput === "paket mahasiswa") {
+            return matchNama && jenisPaket.includes("paket");
           } else if (packageInput === "umum") {
             return matchNama && !jenisPaket.includes("siswa") && !jenisPaket.includes("mahasiswa");
           }
@@ -133,5 +133,6 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
 
 

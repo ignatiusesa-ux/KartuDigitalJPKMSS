@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+}
+
+#card {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #000;
+  display: inline-block;
+  background-color: #fff;
+  width: 100%;
+}
+
+#logo {
+  width: 100px;
+  margin-bottom: 20px;
+}

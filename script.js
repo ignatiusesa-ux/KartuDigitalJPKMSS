@@ -1,4 +1,52 @@
 window.addEventListener("DOMContentLoaded", function () {
+  // --- Autocomplete setup (ditambahkan untuk memperbaiki dropdown nama) ---
+  const nameInputEl = document.getElementById("name");
+  const autocompleteList = document.getElementById("autocomplete-list");
+  let pesertaList = [];
+
+  // Load daftar peserta untuk autocomplete
+  fetch("Peserta%20JPKM%20s.d%2010%20Juli%202025%20New.json")
+    .then((response) => response.json())
+    .then((data) => {
+      pesertaList = (data["Peserta_11-07-2025"] || []).map(
+        (item) => item["Nama Member"] || ""
+      );
+    })
+    .catch((err) => {
+      console.error("Gagal load data peserta untuk autocomplete:", err);
+      pesertaList = [];
+    });
+
+  // Tampilkan saran autocomplete ketika mengetik
+  nameInputEl.addEventListener("input", function () {
+    const input = this.value.toLowerCase();
+    autocompleteList.innerHTML = "";
+
+    if (!input) return;
+
+    const suggestions = pesertaList
+      .filter((nama) => nama && nama.toLowerCase().includes(input))
+      .slice(0, 10);
+
+    suggestions.forEach((nama) => {
+      const li = document.createElement("li");
+      li.textContent = nama;
+      li.addEventListener("click", function () {
+        nameInputEl.value = nama;
+        autocompleteList.innerHTML = "";
+      });
+      autocompleteList.appendChild(li);
+    });
+  });
+
+  // Tutup daftar autocomplete bila klik di luar input
+  document.addEventListener("click", function (e) {
+    if (e.target !== nameInputEl) {
+      autocompleteList.innerHTML = "";
+    }
+  });
+  // --- End autocomplete setup ---
+
   document.getElementById("identity-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -39,7 +87,11 @@ window.addEventListener("DOMContentLoaded", function () {
           } else if (packageInput === "paket mahasiswa") {
             return matchNama && jenisPaket.includes("paket");
           } else if (packageInput === "umum") {
-            return matchNama && !jenisPaket.includes("siswa") && !jenisPaket.includes("mahasiswa");
+            return (
+              matchNama &&
+              !jenisPaket.includes("siswa") &&
+              !jenisPaket.includes("mahasiswa")
+            );
           }
 
           return false;
@@ -55,44 +107,54 @@ window.addEventListener("DOMContentLoaded", function () {
           switch (jenisPaket) {
             case "SISWA SANTO ALOYSIUS":
               cssClass = "kartu-aloysius";
-              gambar = "Kartu Peserta Siswa Aloysius Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Siswa Aloysius Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "SISWA":
             case "MAHASISWA":
               cssClass = "kartu-siswa";
-              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "DASAR PLUS":
               cssClass = "kartu-dasarplus";
-              gambar = "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Dasar Plus Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "PRIMER":
               cssClass = "kartu-primer";
-              gambar = "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Primer Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "MIX":
               cssClass = "kartu-mix";
-              gambar = "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Mix Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "ADVANCED":
               cssClass = "kartu-advanced";
-              gambar = "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Advanced Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "EXECUTIVE":
               cssClass = "kartu-executive";
-              gambar = "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Executive Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "PLATINUM":
               cssClass = "kartu-platinum";
-              gambar = "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Platinum Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             case "KEUSKUPAN":
               cssClass = "kartu-keuskupan";
-              gambar = "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Keuskupan Kosong Untuk Web Kartu DepanBelakang.jpg";
               break;
             default:
               cssClass = "kartu-siswa";
-              gambar = "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
+              gambar =
+                "Kartu Peserta Siswa Kosong Untuk Web Kartu DepanBelakang.jpg";
           }
 
           // Set class dan gambar kartu
@@ -111,7 +173,7 @@ window.addEventListener("DOMContentLoaded", function () {
           document.getElementById("field-masaberlaku").textContent =
             `${peserta["Tanggal Masuk"]} s.d ${peserta["Tanggal Akhir Kontrak"]}`;
 
-          // Tampilkan nama paket persis sesuai JSON jika mengandung kata SISWA atau MAHASISWA
+          // Tampilkan nama paket jika mengandung SISWA / MAHASISWA
           const namaPaketField = document.getElementById("field-namapaket");
           if (jenisPaket.includes("SISWA") || jenisPaket.includes("MAHASISWA")) {
             namaPaketField.textContent = peserta["Paket"];
@@ -133,5 +195,3 @@ window.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
-
-
